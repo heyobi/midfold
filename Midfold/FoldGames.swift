@@ -145,53 +145,70 @@ struct FlightCanvas: View {
 
     var body: some View {
         Canvas { ctx, size in
-            let h = size.height
-            ctx.fill(Path(CGRect(origin: .zero, size: size)), with: .linearGradient(
-                Gradient(colors: [Color(red: 0.15, green: 0.22, blue: 0.48), Color(red: 0.42, green: 0.36, blue: 0.62),
-                                  Color(red: 0.96, green: 0.62, blue: 0.48)]),
-                startPoint: .zero, endPoint: CGPoint(x: 0, y: h)))
-            // Distant paper hills.
-            for (i, alpha) in [(0, 0.10), (1, 0.16)] {
-                var hill = Path()
-                hill.move(to: CGPoint(x: 0, y: h))
-                let base = h * (0.80 + Double(i) * 0.08)
-                stride(from: 0.0, through: size.width, by: 40).forEach { x in
-                    let wave = sin((x / size.width + Double(i) * 0.3 + engine.elapsed * 0.02 * Double(i + 1)) * .pi * 3)
-                    hill.addLine(to: CGPoint(x: x, y: base + wave * h * 0.03))
-                }
-                hill.addLine(to: CGPoint(x: size.width, y: h))
-                ctx.fill(hill, with: .color(.white.opacity(alpha)))
-            }
-            let ww = FlightEngine.wallWidth * h
-            for w in engine.walls {
-                let x = w.x * h - ww / 2
-                let top = (w.gapCenter - w.gapHeight / 2) * h
-                let bottom = (w.gapCenter + w.gapHeight / 2) * h
-                for r in [CGRect(x: x, y: -10, width: ww, height: top + 10),
-                          CGRect(x: x, y: bottom, width: ww, height: h - bottom + 10)] {
-                    let p = Path(roundedRect: r, cornerRadius: 6)
-                    ctx.fill(p, with: .color(Palette.paper))
-                    // The crease down the middle of each folded strip, and its shaded half.
-                    ctx.fill(Path(CGRect(x: r.midX, y: r.minY, width: r.width / 2, height: r.height)),
-                             with: .color(.black.opacity(0.10)))
-                    var crease = Path(); crease.move(to: CGPoint(x: r.midX, y: r.minY)); crease.addLine(to: CGPoint(x: r.midX, y: r.maxY))
-                    ctx.stroke(crease, with: .color(.black.opacity(0.22)), style: StrokeStyle(lineWidth: 1.5, dash: [6, 5]))
-                }
-            }
-            // Paper glider.
-            let gx = FlightEngine.gliderX * h, gy = engine.y * h, s = FlightEngine.gliderRadius * h * 1.6
-            let tilt = engine.phase == .crashed ? 0.6 : 0
-            var plane = Path()
-            plane.move(to: CGPoint(x: s, y: 0))
-            plane.addLine(to: CGPoint(x: -s, y: -s * 0.55))
-            plane.addLine(to: CGPoint(x: -s * 0.55, y: 0))
-            plane.addLine(to: CGPoint(x: -s, y: s * 0.45))
-            plane.closeSubpath()
-            var fold = Path(); fold.move(to: CGPoint(x: s, y: 0)); fold.addLine(to: CGPoint(x: -s * 0.55, y: 0))
-            let t = CGAffineTransform(translationX: gx, y: gy).rotated(by: tilt)
-            ctx.fill(plane.applying(t), with: .color(.white))
-            ctx.stroke(fold.applying(t), with: .color(Palette.blue), lineWidth: 2)
+            Self.draw(&ctx, size: size, engine: engine)
         }
+    }
+
+    static func draw(_ ctx: inout GraphicsContext, size: CGSize, engine: FlightEngine) {
+        let h = Double(size.height)
+        let w = Double(size.width)
+        let sky = Gradient(colors: [Color(red: 0.15, green: 0.22, blue: 0.48),
+                                    Color(red: 0.42, green: 0.36, blue: 0.62),
+                                    Color(red: 0.96, green: 0.62, blue: 0.48)])
+        ctx.fill(Path(CGRect(x: 0, y: 0, width: w, height: h)),
+                 with: .linearGradient(sky, startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0, y: h)))
+        // Distant paper hills.
+        for layer in 0..<2 {
+            let alpha: Double = layer == 0 ? 0.10 : 0.16
+            let base: Double = h * (0.80 + Double(layer) * 0.08)
+            let drift: Double = engine.elapsed * 0.02 * Double(layer + 1) + Double(layer) * 0.3
+            var hill = Path()
+            hill.move(to: CGPoint(x: 0, y: h))
+            var x = 0.0
+            while x <= w + 40 {
+                let phase: Double = (x / max(1, w) + drift) * Double.pi * 3
+                let y: Double = base + sin(phase) * h * 0.03
+                hill.addLine(to: CGPoint(x: x, y: y))
+                x += 40
+            }
+            hill.addLine(to: CGPoint(x: w, y: h))
+            ctx.fill(hill, with: .color(.white.opacity(alpha)))
+        }
+        let ww: Double = FlightEngine.wallWidth * h
+        for wall in engine.walls {
+            let x: Double = wall.x * h - ww / 2
+            let top: Double = (wall.gapCenter - wall.gapHeight / 2) * h
+            let bottom: Double = (wall.gapCenter + wall.gapHeight / 2) * h
+            let rects = [CGRect(x: x, y: -10, width: ww, height: top + 10),
+                         CGRect(x: x, y: bottom, width: ww, height: h - bottom + 10)]
+            for r in rects {
+                ctx.fill(Path(roundedRect: r, cornerRadius: 6), with: .color(Palette.paper))
+                // The crease down the middle of each folded strip, and its shaded half.
+                let shadeRect = CGRect(x: r.midX, y: r.minY, width: r.width / 2, height: r.height)
+                ctx.fill(Path(shadeRect), with: .color(.black.opacity(0.10)))
+                var crease = Path()
+                crease.move(to: CGPoint(x: r.midX, y: r.minY))
+                crease.addLine(to: CGPoint(x: r.midX, y: r.maxY))
+                ctx.stroke(crease, with: .color(.black.opacity(0.22)), style: StrokeStyle(lineWidth: 1.5, dash: [6, 5]))
+            }
+        }
+        // Paper glider.
+        let gx: Double = FlightEngine.gliderX * h
+        let gy: Double = engine.y * h
+        let s: Double = FlightEngine.gliderRadius * h * 1.6
+        let tilt: Double = engine.phase == .crashed ? 0.6 : 0
+        var plane = Path()
+        plane.move(to: CGPoint(x: s, y: 0))
+        plane.addLine(to: CGPoint(x: -s, y: -s * 0.55))
+        plane.addLine(to: CGPoint(x: -s * 0.55, y: 0))
+        plane.addLine(to: CGPoint(x: -s, y: s * 0.45))
+        plane.closeSubpath()
+        var crease = Path()
+        crease.move(to: CGPoint(x: s, y: 0))
+        crease.addLine(to: CGPoint(x: -s * 0.55, y: 0))
+        let t = CGAffineTransform(translationX: CGFloat(gx), y: CGFloat(gy)).rotated(by: CGFloat(tilt))
+        ctx.fill(plane.applying(t), with: .color(.white))
+        ctx.stroke(crease.applying(t), with: .color(Palette.blue), lineWidth: 2)
     }
 }
 

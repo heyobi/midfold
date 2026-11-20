@@ -32,7 +32,8 @@ jobs:
           UDID=$(bash scripts/sim-device.sh "iPhone 17 Pro")
           echo "Simulator: $UDID"
           xcodebuild test -project Midfold.xcodeproj -scheme Midfold -destination "id=$UDID" \
-            -only-testing:MidfoldTests CODE_SIGNING_ALLOWED=NO | tail -n 80
+            -only-testing:MidfoldTests CODE_SIGNING_ALLOWED=NO > test.log 2>&1 || { grep -E "error:|failed|XCTAssert" test.log | head -n 60; tail -n 30 test.log; exit 1; }
+          grep -E "Executed|passed|failed" test.log | tail -n 30
 
   prepare:
     name: Check App Store Connect
