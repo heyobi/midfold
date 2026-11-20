@@ -140,7 +140,7 @@ async function profile(serial, profileName) {
   let capsChanged = false;
   const wanted = (process.env.CAPABILITIES || '').split(',').map((c) => c.trim()).filter(Boolean);
   if (wanted.length) {
-    const have = await api('GET', `/v1/bundleIds/${bid.id}/bundleIdCapabilities?limit=200`);
+    const have = await api('GET', `/v1/bundleIds/${bid.id}/bundleIdCapabilities`);
     const types = have.data.map((c) => c.attributes.capabilityType);
     for (const c of wanted) {
       if (types.includes(c)) { console.log(`✓ Yetenek açık: ${c}`); continue; }
