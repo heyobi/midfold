@@ -10,12 +10,11 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 # (raw name, title, subtitle on iPhone Duo, subtitle elsewhere)
 ORDER = [
-    ('2-flight', 'Open to climb, close to dive', 'The hinge is the controller', 'Tilt to steer, or fold an iPhone Duo'),
-    ('4-quickdraw', 'Face to face on one phone', 'Each player gets a half, the fold is the line', 'Each player gets one half of the screen'),
-    ('5-oddspot', 'Find the odd one first', 'Your own grid on your side of the fold', 'Your own grid, a wrong tap freezes you'),
-    ('6-tug', 'Pull it over the fold', 'Tap faster than your rival', 'Tap faster than your rival'),
-    ('3-lock', 'Hold the angle', 'Fold to each target and lock it', 'Hit each target angle and hold it'),
-    ('1-home', 'Five quick party games', 'Made for iPhone Duo. Offline, no ads', 'Offline, no ads, no accounts'),
+    ('1-meadow', 'Pump the hinge to fly', 'Every close-and-open is a wing flap', 'Tap to flap, find the rhythm'),
+    ('2-cliffs', 'Ride the wind', 'Quick, deep pumps flap hard', 'Updrafts, downdrafts, sliding gates'),
+    ('3-caves', 'Thread the tunnels', 'Small pumps make small hops', 'Tight tunnels need gentle flaps'),
+    ('4-won', 'Three stars, 18 levels', 'Plus Endless and a daily course', 'Plus Endless and a daily course'),
+    ('5-home', 'Three paper worlds', 'Made for iPhone Duo', 'Game Center leaderboards'),
 ]
 
 BOLD = 'C:/Windows/Fonts/segoeuib.ttf'
@@ -110,8 +109,8 @@ def main():
             print('missing', name)
             continue
         i += 1
-        fold = 0.5 if kind == 'duo-inner' else None
-        label = 'iPhone Duo hinge' if name in ('2-flight', '3-lock') else 'iPhone Duo fold'
+        fold = 0.5 if kind == 'duo-inner' and name != '5-home' else None
+        label = 'iPhone Duo hinge'
         compose(src, title, sub_duo if duo else sub, out / f'{i}-{name[2:]}.png', i % 2 == 1, fold, label)
         print('saved', i, name)
 

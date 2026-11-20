@@ -5,119 +5,144 @@ import json
 L = {}
 
 L['en-US'] = dict(
-    name='Midfold: 2 Player Fold Games',
-    subtitle='Party duels on one phone',
-    keywords='two,party,duel,reaction,tap,foldable,hinge,versus,friends,offline,local,multiplayer,battle,family',
-    promo='Open the phone to fly, fold it to lock the angle, or lay it flat and duel face to face across the fold. Made for iPhone Duo, fun on every iPhone and iPad.',
-    description="""Midfold turns the fold into the game. Made for iPhone Duo, playable on every iPhone and iPad. No account, no ads, works offline.
+    name='Midfold: Pump to Fly',
+    subtitle='Fold your phone, flap & glide',
+    keywords='foldable,hinge,bird,wings,flap,paper,origami,arcade,glider,tap,casual,levels,endless,daily',
+    promo='Made for iPhone Duo: hold it sideways and pump the hinge. Every close-and-open is a wing flap. Quick and deep flaps hard, small pumps make small hops.',
+    description="""Pump the hinge to fly. Midfold is an arcade flight made for iPhone Duo: hold the phone sideways, half open, and close-then-open it. Every pump is a wing flap for Kip, a little bird folded from paper.
 
-FOLD GAMES: THE HINGE IS THE CONTROLLER
-• Fold Flight: open the phone wider to climb, close it to dive, and steer a paper glider through the gaps.
-• Angle Lock: fold to eight target angles and hold each one steady. Beat your best time.
+QUICK PUMP, BIG FLAP
+A quick, deep pump flaps hard. A small, slow one is a gentle hop. Kip sinks between flaps, so you fly by rhythm and strength: big flaps over tall walls, tiny ones through tight tunnels.
 
-FACE-TO-FACE DUELS
-Lay the phone open flat on the table between two players. Each half of the screen turns toward its player, and the fold is the centre line.
-• Quick Draw: wait for green, then tap first. Tap too early and the point goes to your rival.
-• Tug Line: tap as fast as you can to pull the knot over the fold to your side.
-• Odd Spot: each player gets their own grid. Find the one symbol that is different before your rival does; a wrong tap freezes you.
+THREE PAPER WORLDS
+• Paper Meadow: rolling hills and paper gates. Learn the rhythm.
+• Gusty Cliffs: updrafts, downdrafts and gates that slide.
+• Ink Caves: narrow tunnels that need the gentlest pumps.
+18 hand-tuned levels with three stars each, and three feathers per run so a bump is not the end.
 
-ON EVERY DEVICE
-On iPhones and iPads without a hinge, steer the fold games by tilting the device or with a slider, and duels split the screen in two.
+ENDLESS AND DAILY
+How far can Kip go? Endless keeps getting harder. The daily flight is a new course every day, the same for everyone.
 
-PRIVATE
-No accounts, no ads, no tracking. Nothing leaves your device.""")
+FEELS GOOD
+Haptics that follow every flap, paper-whoosh sounds, parallax worlds, confetti and a quick restart. Game Center leaderboards and achievements.
+
+ON EVERY IPHONE AND IPAD
+No hinge? Tap to flap, with the same physics.
+
+FAIR
+Paper Meadow and the daily flight are free. One purchase unlocks the other worlds and Endless. No ads, no subscription, no tracking.""")
 
 L['tr'] = dict(
-    name='Midfold: İki Kişilik Oyunlar',
-    subtitle='Katla, kapış, kazan',
-    keywords='parti,düello,refleks,dokun,katlanabilir,menteşe,arkadaş,çevrimdışı,yerel,aile,yarış,hız,eğlence',
-    promo='Uçmak için telefonu açın, açıyı kilitlemek için katlayın ya da düz bırakıp katlama çizgisinin iki yanında karşılıklı kapışın. iPhone Duo için tasarlandı.',
-    description="""Midfold katlamayı oyuna çeviriyor. iPhone Duo için tasarlandı, her iPhone ve iPad'de oynanır. Hesap yok, reklam yok, internetsiz çalışır.
+    name='Midfold: Pompala ve Uç',
+    subtitle='Telefonu katla, kanat çırp',
+    keywords='katlanabilir,menteşe,kuş,kanat,kağıt,origami,arcade,uçuş,dokun,bölüm,sonsuz,günlük,refleks',
+    promo="iPhone Duo için: telefonu yan tutun ve menteşeyi pompalayın. Her kapat-aç bir kanat çırpışı. Hızlı ve derin pompa güçlü, küçük pompa küçük sıçrama.",
+    description="""Uçmak için menteşeyi pompalayın. Midfold, iPhone Duo için tasarlanmış bir arcade uçuş oyunu: telefonu yan tutun, yarıya kadar açın, biraz kapatıp yeniden açın. Her pompa, kâğıttan katlanmış küçük kuş Kip için bir kanat çırpışı.
 
-KATLAMA OYUNLARI: MENTEŞE OYUN KOLUNUZ
-• Katla Uç: yükselmek için telefonu açın, alçalmak için kapatın ve kâğıt uçağı boşluklardan geçirin.
-• Açı Kilidi: telefonu sekiz hedef açıya getirin ve her birinde sabit tutun. Rekorunuzu geçin.
+HIZLI POMPA, GÜÇLÜ ÇIRPIŞ
+Hızlı ve derin bir pompa güçlü çırpar. Küçük ve yavaş bir pompa nazik bir sıçramadır. Kip çırpışlar arasında alçalır; ritim ve güçle uçarsınız: yüksek duvarlar için büyük, dar tüneller için minik çırpışlar.
 
-KARŞILIKLI DÜELLOLAR
-Telefonu iki oyuncunun arasına, masaya düz açık bırakın. Ekranın her yarısı kendi oyuncusuna döner, katlama çizgisi orta çizgidir.
-• Hızlı Dokun: yeşili bekleyin, sonra ilk siz dokunun. Erken dokunursanız sayı rakibe gider.
-• Halat Çek: düğümü katlama çizgisinin üstünden kendi tarafınıza çekmek için olabildiğince hızlı dokunun.
-• Farklıyı Bul: her oyuncunun kendi ızgarası var. Farklı olan tek simgeyi rakibinizden önce bulun; yanlış dokunuş sizi dondurur.
+ÜÇ KÂĞIT DÜNYA
+• Kâğıt Çayır: dalgalı tepeler ve kâğıt kapılar. Ritmi öğrenin.
+• Rüzgârlı Yamaçlar: yukarı ve aşağı esen rüzgârlar, kayan kapılar.
+• Mürekkep Mağaraları: en nazik pompaları isteyen dar tüneller.
+Her biri üç yıldızlı 18 bölüm; her uçuşta üç tüy, yani bir çarpma oyunun sonu değil.
 
-HER CİHAZDA
-Menteşesi olmayan iPhone ve iPad'lerde katlama oyunlarını cihazı eğerek ya da kaydırıcıyla oynarsınız; düellolarda ekran ikiye bölünür.
+SONSUZ VE GÜNLÜK
+Kip ne kadar uzağa gidebilir? Sonsuz mod gittikçe zorlaşır. Günün uçuşu her gün yeni bir parkur, herkes için aynı.
 
-GİZLİ
-Hesap yok, reklam yok, izleme yok. Hiçbir şey cihazınızdan çıkmaz.""")
+İYİ HİSSETTİRİR
+Her çırpışa eşlik eden titreşim, kâğıt hışırtısı sesleri, katmanlı dünyalar, konfeti ve hızlı yeniden başlama. Game Center sıralamaları ve başarımları.
+
+HER IPHONE VE IPAD'DE
+Menteşe yok mu? Aynı fizikle dokunarak kanat çırpın.
+
+ADİL
+Kâğıt Çayır ve günün uçuşu ücretsiz. Tek bir satın alma diğer dünyaların ve Sonsuz modun kilidini açar. Reklam yok, abonelik yok, izleme yok.""")
 
 L['es-MX'] = dict(
-    name='Midfold: Juegos para 2',
-    subtitle='Duelos cara a cara y bisagra',
-    keywords='dos,jugadores,fiesta,duelo,reflejos,plegable,amigos,sin,internet,local,multijugador,familia,rapido',
-    promo='Abre el teléfono para volar, dóblalo para fijar el ángulo o déjalo plano y enfréntate cara a cara a ambos lados del pliegue. Hecho para iPhone Duo.',
-    description="""Midfold convierte el pliegue en el juego. Hecho para iPhone Duo y se juega en cualquier iPhone y iPad. Sin cuenta, sin anuncios, funciona sin internet.
+    name='Midfold: Bombea y vuela',
+    subtitle='Dobla tu celular y aletea',
+    keywords='plegable,bisagra,pajaro,aletear,papel,origami,arcade,planeador,tocar,niveles,infinito,diario',
+    promo='Hecho para iPhone Duo: sostenlo de lado y bombea la bisagra. Cada cerrar y abrir es un aleteo. Rápido y profundo aletea fuerte; poco, un saltito.',
+    description="""Bombea la bisagra para volar. Midfold es un juego arcade de vuelo hecho para iPhone Duo: sostén el teléfono de lado, medio abierto, y ciérralo un poco y vuelve a abrirlo. Cada bombeo es un aleteo de Kip, un pajarito doblado en papel.
 
-JUEGOS DE PLIEGUE: LA BISAGRA ES EL CONTROL
-• Vuelo plegado (Fold Flight): abre más el teléfono para subir, ciérralo para bajar y guía un avión de papel entre los huecos.
-• Bloqueo de ángulo (Angle Lock): dobla el teléfono hasta ocho ángulos objetivo y mantén cada uno firme. Supera tu mejor tiempo.
+BOMBEO RÁPIDO, ALETEO FUERTE
+Un bombeo rápido y profundo aletea fuerte. Uno pequeño y lento es un saltito suave. Kip baja entre aleteos: vuelas con ritmo y fuerza, aleteos grandes sobre muros altos y diminutos por túneles estrechos.
 
-DUELOS CARA A CARA
-Deja el teléfono abierto y plano sobre la mesa entre dos jugadores. Cada mitad de la pantalla mira a su jugador y el pliegue es la línea central.
-• Quick Draw: espera el verde y toca primero. Si tocas antes, el punto es para tu rival.
-• Tug Line: toca lo más rápido que puedas para llevar el nudo a tu lado del pliegue.
-• Odd Spot: cada jugador tiene su propia cuadrícula. Encuentra el símbolo distinto antes que tu rival; un toque equivocado te congela.
+TRES MUNDOS DE PAPEL
+• Paper Meadow: colinas y puertas de papel. Aprende el ritmo.
+• Gusty Cliffs: corrientes de aire y puertas que se deslizan.
+• Ink Caves: túneles estrechos que piden bombeos suaves.
+18 niveles con tres estrellas cada uno y tres plumas por intento.
 
-EN CUALQUIER DISPOSITIVO
-En iPhone y iPad sin bisagra, juega los juegos de pliegue inclinando el dispositivo o con un control deslizante, y los duelos dividen la pantalla en dos.
+SIN FIN Y DIARIO
+¿Hasta dónde llega Kip? El modo sin fin se pone cada vez más difícil. El vuelo diario es un recorrido nuevo cada día, igual para todos.
 
-PRIVADO
-Sin cuentas, sin anuncios, sin rastreo. Nada sale de tu dispositivo.""")
+SE SIENTE BIEN
+Vibración en cada aleteo, sonidos de papel, mundos con paralaje y reinicio rápido. Clasificaciones y logros de Game Center.
+
+EN CUALQUIER IPHONE Y IPAD
+¿Sin bisagra? Toca para aletear, con la misma física.
+
+JUSTO
+Paper Meadow y el vuelo diario son gratis. Una compra desbloquea los demás mundos y el modo sin fin. Sin anuncios, sin suscripción, sin rastreo.""")
 
 L['pt-BR'] = dict(
-    name='Midfold: Jogos para 2',
-    subtitle='Duelos cara a cara no celular',
-    keywords='dois,jogadores,festa,duelo,reflexo,dobrável,dobradiça,amigos,offline,local,multiplayer,família',
-    promo='Abra o celular para voar, dobre para travar o ângulo ou deixe-o aberto na mesa e dispute cara a cara dos dois lados da dobra. Feito para iPhone Duo.',
-    description="""Midfold transforma a dobra no jogo. Feito para iPhone Duo e jogável em qualquer iPhone e iPad. Sem conta, sem anúncios, funciona offline.
+    name='Midfold: Bombeie e voe',
+    subtitle='Dobre o celular e bata asas',
+    keywords='dobravel,dobradica,passaro,asas,papel,origami,arcade,planador,toque,fases,infinito,diario',
+    promo='Feito para iPhone Duo: segure de lado e bombeie a dobradiça. Cada fechar e abrir é uma batida de asas. Rápido e fundo bate forte; pouco, um pulinho.',
+    description="""Bombeie a dobradiça para voar. Midfold é um jogo arcade de voo feito para iPhone Duo: segure o celular de lado, meio aberto, feche um pouco e abra de novo. Cada bombeada é uma batida de asas do Kip, um passarinho dobrado em papel.
 
-JOGOS DE DOBRA: A DOBRADIÇA É O CONTROLE
-• Voo dobrado (Fold Flight): abra mais o celular para subir, feche para descer e guie um avião de papel pelas brechas.
-• Trava de ângulo (Angle Lock): dobre até oito ângulos-alvo e segure cada um firme. Bata seu melhor tempo.
+BOMBEADA RÁPIDA, BATIDA FORTE
+Uma bombeada rápida e funda bate forte. Uma pequena e lenta é um pulinho suave. O Kip desce entre as batidas: você voa com ritmo e força, batidas grandes sobre muros altos e pequenas em túneis apertados.
 
-DUELOS CARA A CARA
-Deixe o celular aberto e plano na mesa entre dois jogadores. Cada metade da tela fica virada para seu jogador, e a dobra é a linha central.
-• Quick Draw: espere o verde e toque primeiro. Tocou antes da hora, o ponto vai para o rival.
-• Tug Line: toque o mais rápido que puder para puxar o nó por cima da dobra até o seu lado.
-• Odd Spot: cada jogador tem sua própria grade. Ache o símbolo diferente antes do rival; um toque errado congela você.
+TRÊS MUNDOS DE PAPEL
+• Paper Meadow: colinas e portões de papel. Aprenda o ritmo.
+• Gusty Cliffs: correntes de vento e portões que deslizam.
+• Ink Caves: túneis estreitos que pedem bombeadas suaves.
+18 fases com três estrelas cada e três penas por tentativa.
 
-EM QUALQUER APARELHO
-Em iPhones e iPads sem dobradiça, jogue os jogos de dobra inclinando o aparelho ou com um controle deslizante; nos duelos a tela se divide em duas.
+INFINITO E DIÁRIO
+Até onde o Kip vai? O modo infinito fica cada vez mais difícil. O voo diário é um percurso novo todo dia, igual para todos.
 
-PRIVADO
-Sem contas, sem anúncios, sem rastreamento. Nada sai do seu aparelho.""")
+GOSTOSO DE JOGAR
+Vibração em cada batida, sons de papel, mundos com paralaxe e recomeço rápido. Placares e conquistas do Game Center.
+
+EM QUALQUER IPHONE E IPAD
+Sem dobradiça? Toque para bater as asas, com a mesma física.
+
+JUSTO
+Paper Meadow e o voo diário são grátis. Uma compra libera os outros mundos e o modo infinito. Sem anúncios, sem assinatura, sem rastreamento.""")
 
 L['de-DE'] = dict(
-    name='Midfold: Spiele zu zweit',
-    subtitle='Duelle am Tisch, Klapp-Spiele',
-    keywords='zwei,spieler,party,duell,reaktion,tippen,faltbar,scharnier,freunde,offline,lokal,familie',
-    promo='Klapp das Telefon auf, um zu fliegen, falte es, um den Winkel zu halten, oder leg es flach hin und duelliere dich über den Falz hinweg. Für das iPhone Duo.',
-    description="""Midfold macht den Falz zum Spiel. Gemacht für das iPhone Duo, spielbar auf jedem iPhone und iPad. Kein Konto, keine Werbung, funktioniert offline.
+    name='Midfold: Pumpen und fliegen',
+    subtitle='Falten, pumpen, fliegen',
+    keywords='faltbar,scharnier,vogel,flattern,papier,origami,arcade,gleiter,tippen,level,endlos,täglich',
+    promo='Für das iPhone Duo: quer halten und das Scharnier pumpen. Jedes Zu-und-auf ist ein Flügelschlag. Schnell und tief schlägt kräftig, wenig macht kleine Hüpfer.',
+    description="""Pump das Scharnier, um zu fliegen. Midfold ist ein Arcade-Flugspiel für das iPhone Duo: Halte das Telefon quer, halb aufgeklappt, schließ es ein Stück und öffne es wieder. Jedes Pumpen ist ein Flügelschlag für Kip, einen kleinen Vogel aus gefaltetem Papier.
 
-FALZ-SPIELE: DAS SCHARNIER IST DER CONTROLLER
-• Falzflug (Fold Flight): Klapp das Telefon weiter auf, um zu steigen, schließ es, um zu sinken, und lenk einen Papierflieger durch die Lücken.
-• Winkelschloss (Angle Lock): Falte das Telefon auf acht Zielwinkel und halte jeden ruhig. Schlag deine Bestzeit.
+SCHNELL GEPUMPT, KRÄFTIG GESCHLAGEN
+Schnell und tief pumpen schlägt kräftig. Klein und langsam ist ein sanfter Hüpfer. Kip sinkt zwischen den Schlägen: Du fliegst mit Rhythmus und Kraft, große Schläge über hohe Wände, winzige durch enge Tunnel.
 
-DUELLE VON ANGESICHT ZU ANGESICHT
-Leg das Telefon aufgeklappt und flach zwischen zwei Spieler auf den Tisch. Jede Bildschirmhälfte dreht sich zu ihrem Spieler, der Falz ist die Mittellinie.
-• Quick Draw: Warte auf Grün und tippe zuerst. Wer zu früh tippt, schenkt dem Gegner den Punkt.
-• Tug Line: Tippe so schnell du kannst, um den Knoten über den Falz auf deine Seite zu ziehen.
-• Odd Spot: Jeder hat sein eigenes Raster. Finde das eine abweichende Symbol vor deinem Gegner; ein falscher Tipp friert dich ein.
+DREI PAPIERWELTEN
+• Paper Meadow: sanfte Hügel und Papiertore. Lerne den Rhythmus.
+• Gusty Cliffs: Auf- und Abwinde und gleitende Tore.
+• Ink Caves: enge Tunnel, die sanftestes Pumpen verlangen.
+18 Level mit je drei Sternen und drei Federn pro Versuch.
 
-AUF JEDEM GERÄT
-Auf iPhones und iPads ohne Scharnier steuerst du die Falz-Spiele durch Neigen oder mit einem Schieberegler, und Duelle teilen den Bildschirm in zwei Hälften.
+ENDLOS UND TÄGLICH
+Wie weit kommt Kip? Endlos wird immer schwerer. Der Tagesflug ist jeden Tag eine neue Strecke, für alle gleich.
 
-PRIVAT
-Keine Konten, keine Werbung, kein Tracking. Nichts verlässt dein Gerät.""")
+FÜHLT SICH GUT AN
+Haptik bei jedem Flügelschlag, Papiergeräusche, Parallax-Welten und ein schneller Neustart. Game-Center-Bestenlisten und Erfolge.
+
+AUF JEDEM IPHONE UND IPAD
+Kein Scharnier? Tippe zum Flattern, mit derselben Physik.
+
+FAIR
+Paper Meadow und der Tagesflug sind kostenlos. Ein Kauf schaltet die anderen Welten und Endlos frei. Keine Werbung, kein Abo, kein Tracking.""")
 
 LIMITS = dict(name=30, subtitle=30, keywords=100, promo=170, description=4000)
 ok = True
