@@ -1,0 +1,72 @@
+# XcodeGen spec. CI runs `xcodegen generate` to create Midfold.xcodeproj (not checked in).
+name: Midfold
+options:
+  bundleIdPrefix: com.heyobi
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+settings:
+  base:
+    MARKETING_VERSION: 1.0.0
+    CURRENT_PROJECT_VERSION: 1
+    SWIFT_VERSION: "5.0"
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+targets:
+  Midfold:
+    type: application
+    platform: iOS
+    sources:
+      - Midfold
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.heyobi.midfold
+        PRODUCT_NAME: Midfold
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: YES
+    info:
+      path: Midfold/Info.plist
+      properties:
+        CFBundleDisplayName: Midfold
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, tr]
+        LSRequiresIPhoneOS: true
+        LSApplicationCategoryType: public.app-category.party-games
+        ITSAppUsesNonExemptEncryption: false
+        NSMotionUsageDescription: Midfold reads how you tilt the phone to steer the fold games on devices without a hinge. Nothing is recorded.
+        UILaunchScreen:
+          UIColorName: AccentColor
+        UIRequiresFullScreen: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+  MidfoldTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - MidfoldTests
+    dependencies:
+      - target: Midfold
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.heyobi.midfold.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/Midfold.app/Midfold
+        BUNDLE_LOADER: $(TEST_HOST)
+schemes:
+  Midfold:
+    build:
+      targets:
+        Midfold: all
+        MidfoldTests: [test]
+    test:
+      targets:
+        - MidfoldTests
+    archive:
+      config: Release
