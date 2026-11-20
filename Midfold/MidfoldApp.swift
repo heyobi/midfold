@@ -131,8 +131,30 @@ final class AppState: ObservableObject {
     }
 }
 
+/// Lets the flight screen turn a regular iPhone sideways (the game is played in landscape, like the Duo held
+/// half open). The iPhone Duo and iPad keep whatever orientation they are in.
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    static var lock: UIInterfaceOrientationMask = .all
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        Self.lock
+    }
+}
+
+@MainActor
+enum Orientation {
+    static func landscape(_ on: Bool, hasHinge: Bool) {
+        guard UIDevice.current.userInterfaceIdiom == .phone, !hasHinge else { return }
+        AppDelegate.lock = on ? .landscape : .all
+        for case let scene as UIWindowScene in UIApplication.shared.connectedScenes {
+            for w in scene.windows { w.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations() }
+            scene.requestGeometryUpdate(.iOS(interfaceOrientations: on ? .landscapeRight : .all)) { _ in }
+        }
+    }
+}
+
 @main
 struct MidfoldApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var delegate
     @StateObject private var state = AppState()
 
     var body: some Scene {

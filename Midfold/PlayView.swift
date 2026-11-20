@@ -196,11 +196,13 @@ struct PlayView: View {
             model.onFinish = { [weak a = app] sim in a?.finished(sim, request: request) ?? false }
             tutorial = !app.progress.seenTutorial && !ShotsTour.active
             if ShotsTour.active { applyShotPreset() }
+            Orientation.landscape(true, hasHinge: hinge.hasHinge)
             model.start()
         }
         .onDisappear {
             hinge.onFlap = nil
             model.stop()
+            Orientation.landscape(false, hasHinge: hinge.hasHinge)
         }
     }
 
