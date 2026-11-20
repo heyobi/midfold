@@ -112,6 +112,8 @@ jobs:
 
       - name: Create / fetch provisioning profile
         id: profile
+        env:
+          CAPABILITIES: GAME_CENTER
         run: node scripts/asc.cjs profile "${{ steps.cert.outputs.serial }}" "$PROFILE_NAME"
 
       - name: Archive

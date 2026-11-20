@@ -136,6 +136,23 @@ async function profile(serial, profileName) {
   }
   console.log(`✓ Dağıtım sertifikası: ${cert.attributes.name} (${cert.id}), bitiş ${cert.attributes.expirationDate}`);
 
+  // Capabilities the app's entitlements need (CAPABILITIES="GAME_CENTER,..."). Adding one makes old profiles stale.
+  let capsChanged = false;
+  const wanted = (process.env.CAPABILITIES || '').split(',').map((c) => c.trim()).filter(Boolean);
+  if (wanted.length) {
+    const have = await api('GET', `/v1/bundleIds/${bid.id}/bundleIdCapabilities?limit=200`);
+    const types = have.data.map((c) => c.attributes.capabilityType);
+    for (const c of wanted) {
+      if (types.includes(c)) { console.log(`✓ Yetenek açık: ${c}`); continue; }
+      await api('POST', '/v1/bundleIdCapabilities', {
+        data: { type: 'bundleIdCapabilities', attributes: { capabilityType: c },
+          relationships: { bundleId: { data: { type: 'bundleIds', id: bid.id } } } },
+      });
+      console.log(`✓ Yetenek açıldı: ${c}`);
+      capsChanged = true;
+    }
+  }
+
   const existing = await api(
     'GET',
     `/v1/profiles?filter[name]=${encodeURIComponent(profileName)}&filter[profileType]=IOS_APP_STORE&include=bundleId,certificates&limit=50`
@@ -143,7 +160,7 @@ async function profile(serial, profileName) {
   let prof = existing.data.find((p) => {
     const certIds = ((p.relationships.certificates || {}).data || []).map((c) => c.id);
     const pBundle = ((p.relationships.bundleId || {}).data || {}).id;
-    return p.attributes.profileState === 'ACTIVE' && pBundle === bid.id && certIds.includes(cert.id);
+    return !capsChanged && p.attributes.profileState === 'ACTIVE' && pBundle === bid.id && certIds.includes(cert.id);
   });
 
   if (prof) {
