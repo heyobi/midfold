@@ -1,75 +1,45 @@
 import SwiftUI
-import CoreMotion
+import QuartzCore
 
-/// The fold games' controller. On iPhone Duo it is the hinge itself (0° closed … 180° flat); on other iPhones
-/// and iPads it is tilting the device toward you, or a slider.
+/// The iPhone Duo hinge as a controller: every angle sample goes through the pump detector, and each completed
+/// pump calls `onFlap` with its strength. Without a hinge (other iPhones, iPad) the game uses taps instead.
 final class HingeModel: ObservableObject {
-    enum Control: String, CaseIterable, Identifiable {
-        case tilt, slider
-        var id: String { rawValue }
-        var label: LocalizedStringKey { self == .tilt ? "Tilt" : "Slider" }
-    }
-
     enum Status: Equatable { case unknown, closed, partiallyOpen, fullyOpen }
 
     /// True once the system has reported a real hinge (iPhone Duo).
     @Published private(set) var hasHinge = false
     @Published private(set) var status: Status = .unknown
-    @Published private(set) var hingeAngle = 0.0
-    @Published var sliderAngle = 105.0
-    @Published private(set) var tiltAngle = 105.0
-    @Published var control: Control {
-        didSet { UserDefaults.standard.set(control.rawValue, forKey: "control"); updateMotion() }
+    @Published private(set) var angle = 0.0
+    /// Last flap strength, for the gauge (fades in the view).
+    @Published private(set) var lastFlap: (strength: Double, at: Double)?
+    @Published var sensitivity: Double {
+        didSet { UserDefaults.standard.set(sensitivity, forKey: "sensitivity"); detector.sensitivity = sensitivity }
     }
-    /// Screenshot tour only: a fixed angle when the simulator reports no hinge.
-    @Published var shotAngle: Double?
 
-    private let motion = CMMotionManager()
-    private var users = 0
+    var onFlap: ((Double) -> Void)?
+    private var detector = PumpDetector()
 
     init() {
-        let saved = UserDefaults.standard.string(forKey: "control").flatMap(Control.init(rawValue:))
-        control = saved ?? (CMMotionManager().isDeviceMotionAvailable ? .tilt : .slider)
+        let s = UserDefaults.standard.object(forKey: "sensitivity") as? Double ?? 1.0
+        sensitivity = s
+        detector.sensitivity = s
     }
-
-    var motionAvailable: Bool { motion.isDeviceMotionAvailable }
-
-    /// The angle the games read.
-    var angle: Double {
-        if hasHinge { return hingeAngle }
-        if let s = shotAngle { return s }
-        switch control {
-        case .tilt where motionAvailable: return tiltAngle
-        default: return sliderAngle
-        }
-    }
-
-    var usesSlider: Bool { !hasHinge && shotAngle == nil && (control == .slider || !motionAvailable) }
 
     func update(status: Status, angle: Double) {
         if status != .unknown { hasHinge = true }
         self.status = status
-        hingeAngle = min(180, max(0, angle))
+        self.angle = min(180, max(0, angle))
+        let now = CACurrentMediaTime()
+        if let strength = detector.feed(angle: self.angle, at: now) {
+            lastFlap = (strength, now)
+            onFlap?(strength)
+        }
     }
 
-    /// Games call these so the motion sensor only runs while a fold game is on screen.
-    func beginUse() { users += 1; updateMotion() }
-    func endUse() { users = max(0, users - 1); updateMotion() }
-
-    private func updateMotion() {
-        let want = users > 0 && !hasHinge && control == .tilt && motion.isDeviceMotionAvailable
-        if want && !motion.isDeviceMotionActive {
-            motion.deviceMotionUpdateInterval = 1.0 / 60
-            motion.startDeviceMotionUpdates(to: .main) { [weak self] m, _ in
-                guard let self, let g = m?.gravity else { return }
-                // Flat on its back = 40°, upright facing you = 170°. Uses gravity so it works in any orientation.
-                let lean = sqrt(g.x * g.x + g.y * g.y)
-                let u = min(1, max(0, atan2(lean, -g.z) / (.pi / 2)))
-                self.tiltAngle = HingeScale.angle(u)
-            }
-        } else if !want && motion.isDeviceMotionActive {
-            motion.stopDeviceMotionUpdates()
-        }
+    /// Screenshot tour only: show a hinge angle when the simulator has no hinge.
+    func showAngle(_ a: Double, flap: Double?) {
+        angle = a
+        if let f = flap { lastFlap = (f, CACurrentMediaTime()) }
     }
 }
 
@@ -107,81 +77,39 @@ func foldFrame(_ proxy: GeometryProxy) -> CGRect? {
     return nil
 }
 
-/// Half-circle dial showing an angle (and optionally a target band), drawn like the phone's hinge seen from the side.
-struct HingeDial: View {
+/// Small side view of the hinge: the fixed half, the moving half at the current angle, and a strength ring that
+/// flashes with each flap.
+struct HingeGauge: View {
     var angle: Double
-    var target: Double?
-    var tolerance: Double = AngleLockEngine.tolerance
-    var progress: Double = 0
-    var tint: Color = Palette.blue
-
+    var flap: Double        // 0 … 1, fading
     var body: some View {
         Canvas { ctx, size in
+            let c = CGPoint(x: size.width / 2, y: size.height - 6)
             let r = min(size.width / 2, size.height) - 8
-            let c = CGPoint(x: size.width / 2, y: size.height - 4)
             func pt(_ deg: Double, _ rad: Double) -> CGPoint {
-                // 0° = closed (pointing left along the base), 180° = flat (pointing right).
                 let a = Double.pi - deg * .pi / 180
                 return CGPoint(x: c.x + cos(a) * rad, y: c.y - sin(a) * rad)
             }
             var arc = Path()
             arc.addArc(center: c, radius: r, startAngle: .degrees(180), endAngle: .degrees(360), clockwise: false)
-            ctx.stroke(arc, with: .color(.white.opacity(0.18)), style: StrokeStyle(lineWidth: 10, lineCap: .round))
-            if let t = target {
-                var band = Path()
-                band.addArc(center: c, radius: r, startAngle: .degrees(180 + t - tolerance),
-                            endAngle: .degrees(180 + t + tolerance), clockwise: false)
-                ctx.stroke(band, with: .color(Palette.orange), style: StrokeStyle(lineWidth: 16, lineCap: .round))
-                if progress > 0 {
-                    var ring = Path()
-                    ring.addArc(center: pt(t, r), radius: 14, startAngle: .degrees(-90),
-                                endAngle: .degrees(-90 + 360 * progress), clockwise: false)
-                    ctx.stroke(ring, with: .color(.white), style: StrokeStyle(lineWidth: 4, lineCap: .round))
-                }
+            ctx.stroke(arc, with: .color(.white.opacity(0.18)), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+            if flap > 0.01 {
+                var glow = Path()
+                glow.addArc(center: c, radius: r, startAngle: .degrees(180), endAngle: .degrees(180 + 180 * flap), clockwise: false)
+                ctx.stroke(glow, with: .color(Palette.sun.opacity(0.9)), style: StrokeStyle(lineWidth: 5, lineCap: .round))
             }
-            // Fixed half (base) and moving half (lid), like the two halves of the phone.
-            var base = Path(); base.move(to: c); base.addLine(to: pt(0, r * 0.82))
-            ctx.stroke(base, with: .color(.white.opacity(0.55)), style: StrokeStyle(lineWidth: 7, lineCap: .round))
-            var lid = Path(); lid.move(to: c); lid.addLine(to: pt(angle, r * 0.82))
-            ctx.stroke(lid, with: .color(tint), style: StrokeStyle(lineWidth: 7, lineCap: .round))
-            ctx.fill(Path(ellipseIn: CGRect(x: c.x - 7, y: c.y - 7, width: 14, height: 14)), with: .color(.white))
+            var base = Path(); base.move(to: c); base.addLine(to: pt(0, r * 0.8))
+            ctx.stroke(base, with: .color(.white.opacity(0.6)), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+            var lid = Path(); lid.move(to: c); lid.addLine(to: pt(angle, r * 0.8))
+            ctx.stroke(lid, with: .color(.white), style: StrokeStyle(lineWidth: 5, lineCap: .round))
         }
         .overlay(alignment: .bottom) {
             Text("\(Int(angle.rounded()))°")
-                .font(.system(.title3, design: .rounded).weight(.bold).monospacedDigit())
+                .font(.system(.caption, design: .rounded).weight(.bold).monospacedDigit())
                 .foregroundStyle(.white)
-                .padding(.bottom, 18)
+                .padding(.bottom, 10)
         }
         .accessibilityElement()
-        .accessibilityLabel(Text("Angle \(Int(angle.rounded())) degrees"))
-    }
-}
-
-/// Vertical slider used as the controller on devices without a hinge (and when the person picks it).
-struct AngleSlider: View {
-    @Binding var angle: Double
-    var body: some View {
-        GeometryReader { g in
-            let h = g.size.height
-            let u = HingeScale.unit(angle)
-            ZStack(alignment: .bottom) {
-                Capsule().fill(.white.opacity(0.14))
-                Capsule().fill(Palette.blue.opacity(0.85)).frame(height: max(44, h * u))
-                Circle().fill(.white).frame(width: 40, height: 40)
-                    .offset(y: -(h - 44) * u - 2)
-            }
-            .contentShape(Rectangle())
-            .gesture(DragGesture(minimumDistance: 0).onChanged { v in
-                let unit = 1 - min(1, max(0, (v.location.y - 22) / max(1, h - 44)))
-                angle = HingeScale.angle(unit)
-            })
-        }
-        .frame(width: 48)
-        .accessibilityElement()
-        .accessibilityLabel(Text("Angle"))
-        .accessibilityValue(Text("\(Int(angle)) degrees"))
-        .accessibilityAdjustableAction { dir in
-            angle = min(HingeScale.high, max(HingeScale.low, angle + (dir == .increment ? 5 : -5)))
-        }
+        .accessibilityLabel(Text("Hinge angle \(Int(angle.rounded())) degrees"))
     }
 }

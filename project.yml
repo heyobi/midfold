@@ -27,6 +27,10 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         ENABLE_PREVIEWS: YES
+    entitlements:
+      path: Midfold/Midfold.entitlements
+      properties:
+        com.apple.developer.game-center: true
     info:
       path: Midfold/Info.plist
       properties:
@@ -36,9 +40,8 @@ targets:
         CFBundleDevelopmentRegion: en
         CFBundleLocalizations: [en, tr]
         LSRequiresIPhoneOS: true
-        LSApplicationCategoryType: public.app-category.party-games
+        LSApplicationCategoryType: public.app-category.arcade-games
         ITSAppUsesNonExemptEncryption: false
-        NSMotionUsageDescription: Midfold reads how you tilt the phone to steer the fold games on devices without a hinge. Nothing is recorded.
         UILaunchScreen:
           UIColorName: AccentColor
         UIRequiresFullScreen: true

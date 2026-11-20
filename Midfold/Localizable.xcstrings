@@ -1,72 +1,72 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "%lld degrees": {
+    "%lld feathers left": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld derece"
+            "value": "%lld tüy kaldı"
           }
         }
       }
     },
-    "%lld ms": {
+    "%lld of 3 stars": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld ms"
+            "value": "3 yıldızdan %lld"
           }
         }
       }
     },
-    "All locked!": {
+    "%lld%% of the way": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hepsi kilitlendi!"
+            "value": "Yolun %%%lld kadarı"
           }
         }
       }
     },
-    "Angle": {
+    "A new course every day, the same for everyone.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Açı"
+            "value": "Her gün yeni bir parkur, herkes için aynı."
           }
         }
       }
     },
-    "Angle %lld degrees": {
+    "A paper bird, one flap at a time": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Açı %lld derece"
+            "value": "Kâğıt bir kuş, her seferinde bir kanat çırpışı"
           }
         }
       }
     },
-    "Angle Lock": {
+    "All worlds are unlocked.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Açı Kilidi"
+            "value": "Tüm dünyaların kilidi açıldı."
           }
         }
       }
     },
-    "Best %@": {
+    "All worlds unlocked": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rekor %@"
+            "value": "Tüm dünyaların kilidi açık"
           }
         }
       }
@@ -81,42 +81,42 @@
         }
       }
     },
-    "Blue": {
+    "Best played sideways": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mavi"
+            "value": "Yan tutarak oynayın"
           }
         }
       }
     },
-    "Close": {
+    "Continue %@": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kapat"
+            "value": "Devam et %@"
           }
         }
       }
     },
-    "Controller": {
+    "Daily": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kontrol"
+            "value": "Günlük"
           }
         }
       }
     },
-    "Crashed!": {
+    "Daily flight": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çarptın!"
+            "value": "Günün uçuşu"
           }
         }
       }
@@ -131,112 +131,62 @@
         }
       }
     },
-    "Face-to-face duels": {
+    "Endless": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Karşılıklı düellolar"
+            "value": "Sonsuz"
           }
         }
       }
     },
-    "Find the odd one out. Tap when you are ready": {
+    "Endless mode with a leaderboard": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Farklı olanı bul. Hazır olunca dokunun"
+            "value": "Sıralamalı sonsuz mod"
           }
         }
       }
     },
-    "Find the one symbol that is different before your rival does.": {
+    "Flight": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Farklı olan tek simgeyi rakibinizden önce bulun."
+            "value": "Uçuş"
           }
         }
       }
     },
-    "Fold Flight": {
+    "Got it": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Katla Uç"
+            "value": "Anladım"
           }
         }
       }
     },
-    "Fold games": {
+    "Gusty Cliffs": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Katlama oyunları"
+            "value": "Rüzgârlı Yamaçlar"
           }
         }
       }
     },
-    "Fold games control": {
+    "Gusty Cliffs: drafts and sliding gates": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Katlama oyunu kontrolü"
-          }
-        }
-      }
-    },
-    "Fold games read the angle of your iPhone Duo's hinge.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Katlama oyunları iPhone Duo menteşenizin açısını okur."
-          }
-        }
-      }
-    },
-    "Fold the phone to each target angle and hold it.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Telefonu her hedef açıya getirin ve öyle tutun."
-          }
-        }
-      }
-    },
-    "Found it!": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buldun!"
-          }
-        }
-      }
-    },
-    "Frozen!": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dondun!"
-          }
-        }
-      }
-    },
-    "Games you play with the fold": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Katlayarak oynanan oyunlar"
+            "value": "Rüzgârlı Yamaçlar: rüzgârlar ve kayan kapılar"
           }
         }
       }
@@ -251,42 +201,142 @@
         }
       }
     },
-    "Hit eight target angles and hold steady. Beat your best time.": {
+    "Higher sensitivity makes small pumps flap harder. Without a hinge, tap to flap.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sekiz hedef açıyı yakalayın ve sabit tutun. Rekorunuzu geçin."
+            "value": "Yüksek hassasiyette küçük pompalar da güçlü kanat çırpar. Menteşe yoksa kanat çırpmak için dokunun."
           }
         }
       }
     },
-    "Lay the phone between you. Each of you gets one half of the screen.": {
+    "Hinge angle %lld degrees": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Telefonu aranıza koyun. Ekranın bir yarısı sizin, diğer yarısı rakibinizin."
+            "value": "Menteşe açısı %lld derece"
           }
         }
       }
     },
-    "Lay the phone open flat between you. Each of you gets one half; the fold is the line.": {
+    "Hold the phone sideways, half open. Close it a little and open it again: every pump is a wing flap.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Telefonu aranıza düz açık bırakın. Her birinize bir yarı düşer; katlama çizgisi sınırdır."
+            "value": "Telefonu yan tutun, yarıya kadar açık. Biraz kapatıp yeniden açın: her pompa bir kanat çırpışı."
           }
         }
       }
     },
-    "Made for the iPhone Duo hinge. Here you play by tilting or with a slider.": {
+    "How far can Kip go? It only gets harder.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "iPhone Duo menteşesi için tasarlandı. Burada eğerek ya da kaydırıcıyla oynarsınız."
+            "value": "Kip ne kadar uzağa gidebilir? Gittikçe zorlaşır."
+          }
+        }
+      }
+    },
+    "Ink Caves": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mürekkep Mağaraları"
+          }
+        }
+      }
+    },
+    "Ink Caves: tunnels that need gentle pumps": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mürekkep Mağaraları: nazik pompa isteyen tüneller"
+          }
+        }
+      }
+    },
+    "Leaderboards": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sıralamalar"
+          }
+        }
+      }
+    },
+    "Leaderboards and achievements": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sıralamalar ve başarımlar"
+          }
+        }
+      }
+    },
+    "Level %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölüm %@"
+          }
+        }
+      }
+    },
+    "Level complete!": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölüm tamam!"
+          }
+        }
+      }
+    },
+    "Locked": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli"
+          }
+        }
+      }
+    },
+    "Made for iPhone Duo, where you fly by pumping the hinge. Here, tap to flap.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPhone Duo için tasarlandı; orada menteşeyi pompalayarak uçarsınız. Burada kanat çırpmak için dokunun."
+          }
+        }
+      }
+    },
+    "Made for iPhone Duo: hold it sideways, half open, and pump the hinge.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPhone Duo için tasarlandı: yan tutun, yarıya kadar açın ve menteşeyi pompalayın."
+          }
+        }
+      }
+    },
+    "Menu": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menü"
           }
         }
       }
@@ -301,6 +351,16 @@
         }
       }
     },
+    "Narrow tunnels that need gentle pumps.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nazik pompalar isteyen dar tüneller."
+          }
+        }
+      }
+    },
     "New best!": {
       "localizations": {
         "tr": {
@@ -311,122 +371,252 @@
         }
       }
     },
-    "No accounts, no ads, no tracking. Everything stays on this device.": {
+    "Next level": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hesap yok, reklam yok, izleme yok. Her şey bu cihazda kalır."
+            "value": "Sonraki bölüm"
           }
         }
       }
     },
-    "Odd Spot": {
+    "No accounts, no ads, no tracking. Your progress stays on this device; Game Center is optional.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Farklıyı Bul"
+            "value": "Hesap yok, reklam yok, izleme yok. İlerlemeniz bu cihazda kalır; Game Center isteğe bağlıdır."
           }
         }
       }
     },
-    "On iPhone Duo the fold games use the hinge. On this device, tilt it toward you or use the slider.": {
+    "No earlier purchase was found for this Apple Account.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "iPhone Duo'da katlama oyunları menteşeyle oynanır. Bu cihazda telefonu kendinize doğru eğin ya da kaydırıcıyı kullanın."
+            "value": "Bu Apple Hesabında önceki bir satın alma bulunamadı."
           }
         }
       }
     },
-    "Open wider to climb, close to dive.": {
+    "Not now": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yükselmek için açın, alçalmak için kapatın."
+            "value": "Şimdi değil"
           }
         }
       }
     },
-    "Orange": {
+    "OK": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Turuncu"
+            "value": "Tamam"
           }
         }
       }
     },
-    "Point!": {
+    "On iPhone Duo you pump the hinge instead.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sayı!"
+            "value": "iPhone Duo'da bunun yerine menteşeyi pompalarsınız."
           }
         }
       }
     },
-    "Pull harder!": {
+    "One purchase, no subscription, no ads": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Daha hızlı çek!"
+            "value": "Tek seferlik satın alma, abonelik yok, reklam yok"
           }
         }
       }
     },
-    "Pull!": {
+    "Or pump the hinge to fly again": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çek!"
+            "value": "Ya da yeniden uçmak için menteşeyi pompalayın"
           }
         }
       }
     },
-    "Quick Draw": {
+    "Out of feathers": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hızlı Dokun"
+            "value": "Tüyler bitti"
           }
         }
       }
     },
-    "Round lost": {
+    "Paper Meadow": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Turu kaybettin"
+            "value": "Kâğıt Çayır"
           }
         }
       }
     },
-    "Round to you!": {
+    "Pause": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tur senin!"
+            "value": "Duraklat"
           }
         }
       }
     },
-    "Set each target angle and hold it.": {
+    "Paused": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Her hedef açıyı ayarlayın ve öyle tutun."
+            "value": "Duraklatıldı"
+          }
+        }
+      }
+    },
+    "Play": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oyna"
+          }
+        }
+      }
+    },
+    "Progress %lld percent": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlerleme yüzde %lld"
+          }
+        }
+      }
+    },
+    "Pump sensitivity": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pompa hassasiyeti"
+          }
+        }
+      }
+    },
+    "Pump the hinge or tap to flap": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanat çırpmak için menteşeyi pompalayın ya da dokunun"
+          }
+        }
+      }
+    },
+    "Pump the hinge to fly": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uçmak için menteşeyi pompalayın"
+          }
+        }
+      }
+    },
+    "Pump to flap": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pompala, kanat çırp"
+          }
+        }
+      }
+    },
+    "Quick, deep pumps flap hard. Small pumps make small hops, perfect for tunnels.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hızlı ve derin pompalar güçlü çırpar. Küçük pompalar küçük sıçramalar yapar; tüneller için ideal."
+          }
+        }
+      }
+    },
+    "Restart": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeniden başla"
+          }
+        }
+      }
+    },
+    "Restore purchases": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Satın alımları geri yükle"
+          }
+        }
+      }
+    },
+    "Resume": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devam"
+          }
+        }
+      }
+    },
+    "Retry": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tekrar"
+          }
+        }
+      }
+    },
+    "Rolling hills and paper gates. Learn the rhythm.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dalgalı tepeler ve kâğıt kapılar. Ritmi öğrenin."
+          }
+        }
+      }
+    },
+    "Run over": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uçuş bitti"
           }
         }
       }
@@ -441,22 +631,12 @@
         }
       }
     },
-    "Slide up to climb, down to dive.": {
+    "Sound": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yükselmek için yukarı, alçalmak için aşağı kaydırın."
-          }
-        }
-      }
-    },
-    "Slider": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kaydırıcı"
+            "value": "Ses"
           }
         }
       }
@@ -471,62 +651,22 @@
         }
       }
     },
-    "Steer a paper glider through the gaps by opening and closing the phone.": {
+    "Tap anywhere to flap. Kip sinks between flaps, so find a rhythm.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Telefonu açıp kapatarak kâğıt uçağı boşluklardan geçirin."
+            "value": "Kanat çırpmak için herhangi bir yere dokunun. Kip çırpışlar arasında alçalır, ritmi yakalayın."
           }
         }
       }
     },
-    "TAP!": {
+    "Tap to flap": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "DOKUN!"
-          }
-        }
-      }
-    },
-    "Tap for the next round": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sonraki tur için dokunun"
-          }
-        }
-      }
-    },
-    "Tap like mad to pull the knot over the fold to your side.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Düğümü katlama çizgisinin üstünden kendi tarafınıza çekmek için hızla dokunun."
-          }
-        }
-      }
-    },
-    "Tap tap tap": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dokun dokun dokun"
-          }
-        }
-      }
-    },
-    "Tap the moment it turns green": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yeşile döndüğü anda dokunun"
+            "value": "Kanat çırpmak için dokunun"
           }
         }
       }
@@ -541,122 +681,102 @@
         }
       }
     },
-    "Tap to fly again": {
+    "The purchase did not go through. Nothing was charged.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tekrar uçmak için dokunun"
+            "value": "Satın alma tamamlanmadı. Ücret alınmadı."
           }
         }
       }
     },
-    "Tap to play again": {
+    "The purchase is waiting for approval.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tekrar oynamak için dokunun"
+            "value": "Satın alma onay bekliyor."
           }
         }
       }
     },
-    "Tap to start": {
+    "The store is not available right now. Try again later.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Başlamak için dokunun"
+            "value": "Mağazaya şu anda ulaşılamıyor. Daha sonra yeniden deneyin."
           }
         }
       }
     },
-    "Tap when you are ready": {
+    "Today's best %lld": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hazır olunca dokunun"
+            "value": "Bugünün rekoru %lld"
           }
         }
       }
     },
-    "Target %lld°": {
+    "Try it": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hedef %lld°"
+            "value": "Deneyin"
           }
         }
       }
     },
-    "The hinge is the controller. Open the phone halfway and play.": {
+    "Unlock": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Menteşe oyun kolunuz. Telefonu yarıya kadar açın ve oynayın."
+            "value": "Kilidi aç"
           }
         }
       }
     },
-    "They tapped too early": {
+    "Unlock all worlds": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rakip erken dokundu"
+            "value": "Tüm dünyaların kilidini aç"
           }
         }
       }
     },
-    "Tilt": {
+    "Unlock for %@": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eğme"
+            "value": "%@ karşılığında aç"
           }
         }
       }
     },
-    "Tilt toward you to climb, lay it back to dive.": {
+    "Unlocked. Have fun!": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Yükselmek için kendinize doğru eğin, alçalmak için geri yatırın."
+            "value": "Kilit açıldı. İyi eğlenceler!"
           }
         }
       }
     },
-    "Too early!": {
+    "Up- and downdrafts and gates that slide.": {
       "localizations": {
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Çok erken!"
-          }
-        }
-      }
-    },
-    "Too slow": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geç kaldın"
-          }
-        }
-      }
-    },
-    "Tug Line": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Halat Çek"
+            "value": "Yukarı ve aşağı esen rüzgârlar, kayan kapılar."
           }
         }
       }
@@ -667,66 +787,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sürüm"
-          }
-        }
-      }
-    },
-    "Wait for the signal, then tap first. Too early and the point goes across.": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İşareti bekleyin, sonra ilk siz dokunun. Erken dokunursanız sayı rakibe gider."
-          }
-        }
-      }
-    },
-    "Waiting for the other player…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diğer oyuncu bekleniyor…"
-          }
-        }
-      }
-    },
-    "Wait…": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bekle…"
-          }
-        }
-      }
-    },
-    "Wrong one": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yanlış simge"
-          }
-        }
-      }
-    },
-    "You lose": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kaybettin"
-          }
-        }
-      }
-    },
-    "You win!": {
-      "localizations": {
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kazandın!"
           }
         }
       }

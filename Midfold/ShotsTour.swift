@@ -6,7 +6,7 @@ import SwiftUI
 @MainActor
 struct ShotsTour {
     nonisolated static var active: Bool { ProcessInfo.processInfo.arguments.contains("-shots") }
-    /// `-shotsOuter`: the folded iPhone Duo's outer display, where the fold games do not apply.
+    /// `-shotsOuter`: the folded iPhone Duo's outer display.
     nonisolated static var outer: Bool { ProcessInfo.processInfo.arguments.contains("-shotsOuter") }
 
     let state: AppState
@@ -18,22 +18,20 @@ struct ShotsTour {
     func run() async {
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         try? FileManager.default.removeItem(at: dir.appendingPathComponent("next"))
-        var shots: [(String, Game?, Double?)] = [
-            ("1-home", nil, nil),
-            ("2-flight@100", .flight, 100),
-            ("3-lock@135", .lock, 135),
-            ("4-quickdraw", .quickDraw, nil),
-            ("5-oddspot", .oddSpot, nil),
-            ("6-tug", .tug, nil),
+        // (name, level, preset, hinge angle shown when the simulator has no hinge, flap strength)
+        let shots: [(String, LevelSpec?, ShotPreset, Double?)] = [
+            ("1-meadow@150", .level(.meadow, 2), .flying(seconds: 7.5, flap: 0.9), 150),
+            ("2-cliffs@105", .level(.cliffs, 3), .flying(seconds: 9, flap: 0.5), 105),
+            ("3-caves@70", .level(.caves, 2), .flying(seconds: 14, flap: 0.25), 70),
+            ("4-won", .level(.meadow, 4), .won, nil),
+            ("5-home", nil, .none, nil),
         ]
-        if Self.outer { shots.removeAll { $0.1?.isFoldGame == true } }
-        for (name, game, angle) in shots {
+        for (name, level, preset, angle) in shots {
             state.playing = nil
             try? await Task.sleep(for: .seconds(1))
-            state.hinge.shotAngle = angle
-            if let angle { state.hinge.sliderAngle = angle }
-            state.playing = game
-            // The script sets the hinge after reading the name; give the game time to settle afterwards.
+            state.shotPreset = preset
+            if let level { state.playing = PlayRequest(spec: level, dailyKey: nil) }
+            if let angle, !state.hinge.hasHinge, !Self.outer { state.hinge.showAngle(angle, flap: 0.8) }
             try? await Task.sleep(for: .seconds(2.5))
             await announce(name)
             await waitForNext(name)
@@ -46,7 +44,7 @@ struct ShotsTour {
         write("ready", name)
         let h = state.hinge
         write("hinge-\(name.split(separator: "@")[0]).json",
-              "{\"hasHinge\":\(h.hasHinge),\"angle\":\(h.hingeAngle),\"status\":\"\(h.status)\"}")
+              "{\"hasHinge\":\(h.hasHinge),\"angle\":\(h.angle),\"status\":\"\(h.status)\"}")
     }
 
     private func waitForNext(_ name: String) async {

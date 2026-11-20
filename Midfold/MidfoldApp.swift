@@ -1,56 +1,134 @@
 import SwiftUI
 
-enum Game: String, Identifiable, CaseIterable {
-    case flight, lock, quickDraw, tug, oddSpot
-    var id: String { rawValue }
-
-    var isFoldGame: Bool { self == .flight || self == .lock }
-
+extension World {
     var title: LocalizedStringKey {
         switch self {
-        case .flight: "Fold Flight"
-        case .lock: "Angle Lock"
-        case .quickDraw: "Quick Draw"
-        case .tug: "Tug Line"
-        case .oddSpot: "Odd Spot"
+        case .meadow: "Paper Meadow"
+        case .cliffs: "Gusty Cliffs"
+        case .caves: "Ink Caves"
         }
     }
-
     var blurb: LocalizedStringKey {
         switch self {
-        case .flight: "Steer a paper glider through the gaps by opening and closing the phone."
-        case .lock: "Hit eight target angles and hold steady. Beat your best time."
-        case .quickDraw: "Wait for the signal, then tap first. Too early and the point goes across."
-        case .tug: "Tap like mad to pull the knot over the fold to your side."
-        case .oddSpot: "Find the one symbol that is different before your rival does."
+        case .meadow: "Rolling hills and paper gates. Learn the rhythm."
+        case .cliffs: "Up- and downdrafts and gates that slide."
+        case .caves: "Narrow tunnels that need gentle pumps."
         }
     }
-
     var symbol: String {
         switch self {
-        case .flight: "paperplane.fill"
-        case .lock: "dial.medium.fill"
-        case .quickDraw: "bolt.fill"
-        case .tug: "arrow.left.and.right"
-        case .oddSpot: "eye.fill"
-        }
-    }
-
-    var tint: Color {
-        switch self {
-        case .flight: Color(red: 0.36, green: 0.62, blue: 1.0)
-        case .lock: Color(red: 0.55, green: 0.42, blue: 1.0)
-        case .quickDraw: Color(red: 1.0, green: 0.42, blue: 0.36)
-        case .tug: Color(red: 1.0, green: 0.62, blue: 0.20)
-        case .oddSpot: Color(red: 0.20, green: 0.78, blue: 0.62)
+        case .meadow: "leaf.fill"
+        case .cliffs: "wind"
+        case .caves: "moon.stars.fill"
         }
     }
 }
 
+enum ShotPreset: Equatable { case none, flying(seconds: Double, flap: Double), won }
+
+/// Everything that outlives one flight: progress, the store, Game Center and which flight is on screen.
+@MainActor
 final class AppState: ObservableObject {
-    @Published var playing: Game?
+    @Published var playing: PlayRequest?
     @Published var showSettings = false
+    @Published var showPaywall = false
+    @Published private(set) var progress: Progress
+    @Published var shotPreset: ShotPreset = .none
+
     let hinge = HingeModel()
+    let store = Store()
+    let gameCenter = GameCenter()
+
+    init() {
+        if let d = UserDefaults.standard.data(forKey: "progress"), let p = try? JSONDecoder().decode(Progress.self, from: d),
+           !ShotsTour.active {
+            progress = p
+        } else {
+            progress = Progress()
+        }
+        if ShotsTour.active { progress = Self.demoProgress }
+    }
+
+    private static var demoProgress: Progress {
+        var p = Progress()
+        p.seenTutorial = true
+        for i in 0..<6 { p.record(.level(.meadow, i), stars: i == 4 ? 2 : 3) }
+        for i in 0..<3 { p.record(.level(.cliffs, i), stars: [3, 2, 3][i]) }
+        p.record(.level(.caves, 0), stars: 1)
+        p.bestEndless = 47
+        return p
+    }
+
+    private func save() {
+        guard !ShotsTour.active, let d = try? JSONEncoder().encode(progress) else { return }
+        UserDefaults.standard.set(d, forKey: "progress")
+    }
+
+    static var todayKey: String {
+        let c = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        return String(format: "%04d-%02d-%02d", c.year ?? 0, c.month ?? 0, c.day ?? 0)
+    }
+
+    static var todaySpec: LevelSpec {
+        let c = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        return .daily(year: c.year ?? 2026, month: c.month ?? 1, day: c.day ?? 1)
+    }
+
+    func isOpen(_ l: LevelSpec) -> Bool { progress.isOpen(l, unlocked: store.unlocked) }
+
+    /// The next level to play: the first open level without stars.
+    var continueLevel: LevelSpec {
+        LevelSpec.all.first { isOpen($0) && !progress.completed($0) } ?? .level(.meadow, 0)
+    }
+
+    func nextLevel(after l: LevelSpec) -> LevelSpec? {
+        guard !l.endless else { return nil }
+        let all = LevelSpec.all
+        guard let i = all.firstIndex(of: l), i + 1 < all.count else { return nil }
+        let n = all[i + 1]
+        return isOpen(n) ? n : nil
+    }
+
+    func play(_ l: LevelSpec, dailyKey: String? = nil) {
+        if !l.endless && !isOpen(l) && l.world != .meadow { showPaywall = true; return }
+        if l.endless && dailyKey == nil && !store.unlocked { showPaywall = true; return }
+        let req = PlayRequest(spec: l, dailyKey: dailyKey)
+        if playing != nil {
+            playing = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { self.playing = req }
+        } else {
+            playing = req
+        }
+    }
+
+    func playDaily() { play(Self.todaySpec, dailyKey: Self.todayKey) }
+
+    func closeGame() { playing = nil }
+
+    func markTutorialSeen() {
+        progress.seenTutorial = true
+        save()
+    }
+
+    func best(for r: PlayRequest) -> Int {
+        if let k = r.dailyKey { return progress.dailyBest[k] ?? 0 }
+        return progress.bestEndless
+    }
+
+    /// Records a finished flight. Returns true for a new best.
+    func finished(_ sim: FlightSim, request r: PlayRequest) -> Bool {
+        guard !ShotsTour.active else { return false }
+        var best = false
+        if r.spec.endless {
+            best = progress.recordEndless(sim.score, dailyKey: r.dailyKey)
+            gameCenter.report(progress: progress, level: nil, endlessScore: sim.score, daily: r.dailyKey != nil)
+        } else if sim.phase == .won {
+            best = progress.record(r.spec, stars: sim.starsTaken)
+            gameCenter.report(progress: progress, level: r.spec, endlessScore: nil, daily: false)
+        }
+        save()
+        return best
+    }
 }
 
 @main
@@ -62,12 +140,12 @@ struct MidfoldApp: App {
             HomeView()
                 .environmentObject(state)
                 .environmentObject(state.hinge)
+                .environmentObject(state.store)
                 .modifier(HingeReader(model: state.hinge))
                 .preferredColorScheme(.dark)
                 .task {
-                    if ProcessInfo.processInfo.arguments.contains("-shots") {
-                        await ShotsTour(state: state).run()
-                    }
+                    state.gameCenter.authenticate()
+                    if ShotsTour.active { await ShotsTour(state: state).run() }
                 }
         }
     }
