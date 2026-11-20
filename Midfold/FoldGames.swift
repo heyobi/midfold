@@ -12,7 +12,7 @@ final class FlightModel: ObservableObject {
 
     func attach(_ h: HingeModel) {
         hinge = h
-        if ShotsTour.active { preset(angle: h.angle) }
+        if ShotsTour.active { preset(angle: h.shotAngle ?? h.angle) }
         ticker.onTick = { [weak self] dt, _ in self?.tick(dt) }
         ticker.start()
     }
@@ -61,9 +61,15 @@ final class FlightModel: ObservableObject {
     }
 
     func setAspect(_ a: Double) {
+        // Portrait screens are squeezed horizontally so there is always at least 1.1 screen heights of sky to read ahead.
+        let visible = max(1.1, a)
+        if ShotsTour.active, let h = hinge {
+            engine.aspect = visible
+            preset(angle: h.shotAngle ?? h.angle)
+            return
+        }
         guard engine.phase != .flying else { return }
-        engine.aspect = a
-        if ShotsTour.active, let h = hinge { preset(angle: h.angle) }
+        engine.aspect = visible
     }
 }
 
@@ -152,6 +158,8 @@ struct FlightCanvas: View {
     static func draw(_ ctx: inout GraphicsContext, size: CGSize, engine: FlightEngine) {
         let h = Double(size.height)
         let w = Double(size.width)
+        // World units: y in screen heights; x squeezed so `engine.aspect` units fill the width.
+        let sx = w / max(0.1, engine.aspect)
         let sky = Gradient(colors: [Color(red: 0.15, green: 0.22, blue: 0.48),
                                     Color(red: 0.42, green: 0.36, blue: 0.62),
                                     Color(red: 0.96, green: 0.62, blue: 0.48)])
@@ -174,9 +182,9 @@ struct FlightCanvas: View {
             hill.addLine(to: CGPoint(x: w, y: h))
             ctx.fill(hill, with: .color(.white.opacity(alpha)))
         }
-        let ww: Double = FlightEngine.wallWidth * h
+        let ww: Double = FlightEngine.wallWidth * sx
         for wall in engine.walls {
-            let x: Double = wall.x * h - ww / 2
+            let x: Double = wall.x * sx - ww / 2
             let top: Double = (wall.gapCenter - wall.gapHeight / 2) * h
             let bottom: Double = (wall.gapCenter + wall.gapHeight / 2) * h
             let rects = [CGRect(x: x, y: -10, width: ww, height: top + 10),
@@ -193,9 +201,9 @@ struct FlightCanvas: View {
             }
         }
         // Paper glider.
-        let gx: Double = FlightEngine.gliderX * h
+        let gx: Double = FlightEngine.gliderX * sx
         let gy: Double = engine.y * h
-        let s: Double = FlightEngine.gliderRadius * h * 1.6
+        let s: Double = FlightEngine.gliderRadius * min(h, sx * 1.4) * 1.6
         let tilt: Double = engine.phase == .crashed ? 0.6 : 0
         var plane = Path()
         plane.move(to: CGPoint(x: s, y: 0))
@@ -226,7 +234,7 @@ final class AngleLockModel: ObservableObject {
         if ShotsTour.active {
             // Screenshot state: four targets locked, the fifth almost held.
             engine.start(seed: 4)
-            engine.targets[4] = (h.angle / 5).rounded() * 5 + 2
+            engine.targets[4] = ((h.shotAngle ?? h.angle) / 5).rounded() * 5 + 2
             engine.index = 4
             engine.hold = 0.55
             engine.elapsed = 9.6

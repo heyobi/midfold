@@ -3,11 +3,16 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var state: AppState
     @EnvironmentObject var hinge: HingeModel
+    @Environment(\.horizontalSizeClass) private var hSize
+    @Environment(\.verticalSizeClass) private var vSize
+
+    /// iPad-sized screens get bigger cards and type so the home screen does not look like a stretched phone.
+    private var big: Bool { hSize == .regular && vSize == .regular }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 26) {
+                VStack(alignment: .leading, spacing: big ? 44 : 26) {
                     header
                     section("Fold games", subtitle: hinge.hasHinge
                             ? "The hinge is the controller. Open the phone halfway and play."
@@ -18,7 +23,7 @@ struct HomeView: View {
                             : "Lay the phone between you. Each of you gets one half of the screen.",
                             games: [.quickDraw, .tug, .oddSpot])
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, big ? 40 : 20)
                 .padding(.bottom, 32)
                 .frame(maxWidth: 1100)
                 .frame(maxWidth: .infinity)
@@ -42,23 +47,23 @@ struct HomeView: View {
     private var header: some View {
         HStack(spacing: 14) {
             Image("Logo")
-                .resizable().frame(width: 58, height: 58)
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .resizable().frame(width: big ? 96 : 58, height: big ? 96 : 58)
+                .clipShape(RoundedRectangle(cornerRadius: big ? 22 : 14, style: .continuous))
             VStack(alignment: .leading, spacing: 2) {
-                Text("Midfold").font(.system(size: 34, weight: .heavy, design: .rounded))
-                Text("Games you play with the fold").font(.subheadline).foregroundStyle(.secondary)
+                Text("Midfold").font(.system(size: big ? 56 : 34, weight: .heavy, design: .rounded))
+                Text("Games you play with the fold").font(big ? .title2 : .subheadline).foregroundStyle(.secondary)
             }
         }
-        .padding(.top, 8)
+        .padding(.top, big ? 24 : 8)
     }
 
     private func section(_ title: LocalizedStringKey, subtitle: LocalizedStringKey, games: [Game]) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(title).font(.title2.bold())
-            Text(subtitle).font(.subheadline).foregroundStyle(.secondary)
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 300), spacing: 14)], spacing: 14) {
+            Text(title).font(big ? .largeTitle.bold() : .title2.bold())
+            Text(subtitle).font(big ? .title3 : .subheadline).foregroundStyle(.secondary)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: big ? 420 : 300), spacing: big ? 22 : 14)], spacing: big ? 22 : 14) {
                 ForEach(games) { g in
-                    Button { state.playing = g } label: { GameCard(game: g) }
+                    Button { state.playing = g } label: { GameCard(game: g, big: big) }
                         .buttonStyle(.plain)
                         .accessibilityIdentifier(g.rawValue)
                 }
@@ -69,24 +74,25 @@ struct HomeView: View {
 
 struct GameCard: View {
     let game: Game
+    var big = false
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: big ? 24 : 16) {
             Image(systemName: game.symbol)
-                .font(.system(size: 30, weight: .bold))
+                .font(.system(size: big ? 46 : 30, weight: .bold))
                 .foregroundStyle(.white)
-                .frame(width: 64, height: 64)
-                .background(game.tint.gradient, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-            VStack(alignment: .leading, spacing: 4) {
-                Text(game.title).font(.headline)
-                Text(game.blurb).font(.subheadline).foregroundStyle(.secondary)
+                .frame(width: big ? 104 : 64, height: big ? 104 : 64)
+                .background(game.tint.gradient, in: RoundedRectangle(cornerRadius: big ? 28 : 18, style: .continuous))
+            VStack(alignment: .leading, spacing: big ? 8 : 4) {
+                Text(game.title).font(big ? .title.bold() : .headline)
+                Text(game.blurb).font(big ? .title3 : .subheadline).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
             Spacer(minLength: 0)
             Image(systemName: game.isFoldGame ? "iphone.gen3" : "person.2.fill")
                 .foregroundStyle(.tertiary)
         }
-        .padding(14)
-        .frame(maxWidth: .infinity, minHeight: 96, alignment: .leading)
+        .padding(big ? 24 : 14)
+        .frame(maxWidth: .infinity, minHeight: big ? 170 : 96, alignment: .leading)
         .background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(.white.opacity(0.08)))
         .contentShape(Rectangle())
